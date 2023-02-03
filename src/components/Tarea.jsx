@@ -2,9 +2,12 @@ import React from "react";
 import { TiDeleteOutline } from 'react-icons/ti';
 import '../styles/Tarea.css'
 
-function Tarea ({ texto,id, onclick }){
+function Tarea ({ texto,id, onclick, completada, completar }){
   return(
-      <div className='nota' id={id}>
+      <div 
+      className={`nota ${completada ? 'completada' : ''}`} 
+      id={id} 
+      onclick={completar}>
         <p>{texto}</p>
         <div className="buttons">
           <button className="edit">

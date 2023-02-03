@@ -31,6 +31,10 @@ function App() {
     window.localStorage.setItem('Tareas',JSON.stringify(Tareas))
   }
 
+  const completar = e => {
+    console.log(e)
+  }
+
   return (
     <div className="App">
       {window.addEventListener("load",()=>{
@@ -43,7 +47,7 @@ function App() {
         </h1>
         <form
         onSubmit={crearTareas} >
-          
+        
           <input 
             className='input'
             type='text' 
@@ -57,6 +61,7 @@ function App() {
             {tareas.map(tarea=>{
               return (
                 <Tarea 
+                  completar={completar}
                   key={tarea.id}
                   texto={tarea.texto}
                   id={tarea.id}
