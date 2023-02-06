@@ -20,10 +20,7 @@ function App() {
       texto: input,
       completada: false
     };
-    if (nuevaTarea.includes("pene")){
-      alert("eee pillin")
-      return
-    }
+    
     setTareas([...tareas,nuevaTarea]);
     let tareasAct = [...tareas,nuevaTarea];
     window.localStorage.setItem('Tareas',JSON.stringify(tareasAct))
