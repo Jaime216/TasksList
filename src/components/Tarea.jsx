@@ -7,7 +7,8 @@ function Tarea ({ texto,id, onclick, completada, completar }){
       <div 
       className={`nota ${completada ? 'completada' : ''}`} 
       id={id} 
-      onclick={completar}>
+      onclick={completar} >
+        
         <p>{texto}</p>
         <div className="buttons">
           <button className="edit">

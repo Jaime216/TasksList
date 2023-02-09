@@ -32,8 +32,13 @@ function App() {
     window.localStorage.setItem('Tareas',JSON.stringify(Tareas))
   }
 
-  const completar = e => {
-    console.log(e)
+  const completar = id => {
+    setTareas(tareas.map(tarea => {
+      if(id === tarea.id){
+        tarea.completada = !tarea.completada
+      }
+      return tarea.completada
+    }))
   }
 
   return (
