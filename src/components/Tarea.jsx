@@ -21,9 +21,9 @@ function Tarea ({ texto,id, onclick, completada, completar, edit, editBoolean })
                 placeholder="Edit"
                 className={`${editBoolean ? 'button' : 'editInput'}`}/>
             </form>
-          <div className="iconContainer"
-              onClick={()=>onclick(id)}>
+          <div className="iconContainer">
               <TiDeleteOutline 
+              onClick={()=>onclick(id)}
               className="icon"/>
           </div>
         </div>

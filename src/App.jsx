@@ -38,6 +38,7 @@ function App() {
       }
       return tarea
     }))
+    window.localStorage.setItem('Tareas',JSON.stringify(tareas));
     }
 
     const edit = id => {
