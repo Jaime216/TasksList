@@ -11,6 +11,7 @@
     justify-content: space-between;
 }
 .nota p{
+    font-style: italic;
     cursor: pointer;
     width: fit-content;
     display: flex;
@@ -24,9 +25,11 @@
     justify-content: space-around;
     align-items: center;
 }
-.edit{
+.button{
+    pointer-events: none;
     background: none;
     height: fit-content;
+    width: 25px;
     border-radius: 4px;
     padding: 0 6px;
 }
@@ -41,5 +44,12 @@
 .icon{
     height: 100%;
     width: 60%;
+    cursor: pointer;
+}
+.completada{
+    text-decoration: line-through;
+}
+
+button{
     cursor: pointer;
 }

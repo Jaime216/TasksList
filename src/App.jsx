@@ -31,9 +31,26 @@ function App() {
     window.localStorage.setItem('Tareas',JSON.stringify(Tareas))
   }
 
-  const completar = e => {
-    console.log(e)
-  }
+  const completar = id => {
+    setTareas(tareas.map(tarea => {
+      if ( id === tarea.id ){
+        tarea.completada = !tarea.completada
+      }
+      return tarea
+    }))
+    }
+
+    const edit = id => {
+      let nuevoTexto;
+      tareas.map(tarea => {
+        if(id === tarea.id) {
+          nuevoTexto ="hola"
+        }
+        return tarea.texto = nuevoTexto
+      })
+      setTareas([...tareas])
+      console.log("hola")
+    }
 
   return (
     <div className="App">
@@ -55,7 +72,7 @@ function App() {
             onChange={setValue}/>
           <button 
             type='submit'
-            className='button' >Agregar Tarea</button>
+            className='buttonAdd' >Agregar Tarea</button>
         </form>
         <div className='notas' >
             {tareas.map(tarea=>{
@@ -66,7 +83,9 @@ function App() {
                   texto={tarea.texto}
                   id={tarea.id}
                   completada={tarea.completada} 
-                  onclick={eliminarTareas} />
+                  onclick={eliminarTareas}
+                  edit={edit}
+                  editBoolean={true} />
             )})}
         </div>
       </div>
