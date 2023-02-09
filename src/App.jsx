@@ -41,17 +41,17 @@ function App() {
     window.localStorage.setItem('Tareas',JSON.stringify(tareas));
     }
 
-    const edit = id => {
-      let nuevoTexto;
-      tareas.map(tarea => {
-        if(id === tarea.id) {
-          nuevoTexto ="hola"
-        }
-        return tarea.texto = nuevoTexto
-      })
-      setTareas([...tareas])
-      console.log("hola")
-    }
+    // const edit = id => {
+    //   let nuevoTexto;
+    //   tareas.map(tarea => {
+    //     if(id === tarea.id) {
+    //       nuevoTexto ="hola"
+    //     }
+    //     return tarea.texto = nuevoTexto
+    //   })
+    //   setTareas([...tareas])
+    //   console.log("hola")
+    // }
 
   return (
     <div className="App">
@@ -85,7 +85,7 @@ function App() {
                   id={tarea.id}
                   completada={tarea.completada} 
                   onclick={eliminarTareas}
-                  edit={edit}
+                  // edit={edit}
                   editBoolean={true} />
             )})}
         </div>

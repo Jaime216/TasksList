@@ -14,13 +14,13 @@ function Tarea ({ texto,id, onclick, completada, completar, edit, editBoolean })
           </p>
         <div 
           className="buttons" >
-            <form 
+            {/* <form 
             onClick={e=>{e.preventDefault();edit()}} >
               <input 
                 type="text" 
                 placeholder="Edit"
                 className={`${editBoolean ? 'button' : 'editInput'}`}/>
-            </form>
+            </form> */}
           <div className="iconContainer">
               <TiDeleteOutline 
               onClick={()=>onclick(id)}
