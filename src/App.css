@@ -1,47 +1,27 @@
 *{
   margin: 0;
   padding: 0;
+  
 }
 
 .App {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-.notesContainer{
-  min-height: 500px;
-  width: 600px;
-  -webkit-box-shadow: inset 0px 0px 4px -1px rgba(94,94,94,1);
-  -moz-box-shadow: inset 0px 0px 4px -1px rgba(94,94,94,1);
-  box-shadow: inset 0px 0px 4px -1px rgba(94,94,94,1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.notas{
-  width: 90%;
-  height: fit-content;
-}
-.input{
-  height: 20px;
-  width: 40%;
-  padding: 5px 10px;
-}
-.button{
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-}
-form{
+  background-color: #20262E;
+  align-items: start;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
-.title{
-  height: fit-content;
-  font-size: 1.5rem;
-  margin: 5px;
+
+.AppContainer {
+  margin-top: 5%;
+  width: 350px;
+  min-height: 600px;  
+  background-color: white;
+}
+
+.form {
+  width: 80%;
+  height: 10%;
+
 }

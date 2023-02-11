@@ -5,71 +5,45 @@ import { useState } from 'react';
 
 function App() {
 
-  const [tareas, setTareas] = useState([])
   const [input, setInput] = useState('');
+  const [tareas, setTareas] = useState([])
 
-  const setValue = e => {
+  function changeInputValue (e) {
     setInput(e.target.value)
-    console.log(input)
   }
 
-  const crearTareas = e => {
+  function agregarTarea (e) {
     e.preventDefault();
     const nuevaTarea = {
       id: uuidv4(),
       texto: input,
       completada: false
     };
-    setTareas([...tareas,nuevaTarea]);
-    let tareasAct = [...tareas,nuevaTarea];
-    window.localStorage.setItem('Tareas',JSON.stringify(tareasAct))
-  }
-
-  const eliminarTareas = id => {
-    let Tareas = tareas.filter(tarea=>id!==tarea.id);
-    setTareas(Tareas)
-    window.localStorage.setItem('Tareas',JSON.stringify(Tareas))
-  }
-
-  const completar = e => {
-    console.log(e)
+    const tareasActualizadas = [...tareas,nuevaTarea];
+    setTareas(tareasActualizadas);
   }
 
   return (
-    <div className="App">
-      {window.addEventListener("load",()=>{
-        let tareasAnt = JSON.parse(window.localStorage.getItem('Tareas'));
-        setTareas([...tareasAnt])
-      })}
-      <div className='notesContainer'>
-        <h1 className='title'>
-            Lista de Tareas
-        </h1>
-        <form
-        onSubmit={crearTareas} >
-        
-          <input 
-            className='input'
-            type='text' 
-            maxLength={20}
-            onChange={setValue}/>
-          <button 
-            type='submit'
-            className='button' >Agregar Tarea</button>
+    <div className='App'>
+      <div className='AppContainer'>
+        <form 
+          className='form'
+          onClick={agregarTarea} >
+            <input 
+              type="text" 
+              className='input'
+              onChange={changeInputValue} />
+            <input 
+              type="submit"   
+              value="Agregar Tarea" />
         </form>
-        <div className='notas' >
-            {tareas.map(tarea=>{
-              return (
-                <Tarea 
-                  completar={completar}
-                  key={tarea.id}
-                  texto={tarea.texto}
-                  id={tarea.id}
-                  completada={tarea.completada} 
-                  onclick={eliminarTareas} />
-            )})}
-        </div>
+        {tareas.map(tarea=>{
+          return( 
+            <Tarea
+              texto={tarea.texto} />)
+        })}
       </div>
+      
     </div>
   );
 }
