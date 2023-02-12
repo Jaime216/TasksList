@@ -13,14 +13,14 @@ function App() {
   }
 
   function agregarTarea (e) {
+    e.preventDefault();
     if(input.trim()){
-      e.preventDefault();
       const nuevaTarea = {
         id: uuidv4(),
         texto: input,
         completada: false
       };
-      const tareasActualizadas = [...tareas,nuevaTarea];
+      const tareasActualizadas = [nuevaTarea,...tareas];
       setTareas(tareasActualizadas);
       setInput('');
       document.getElementById('input').value = '';
@@ -49,7 +49,11 @@ function App() {
             {tareas.map(tarea=>{
               return( 
                 <Tarea
-                  texto={tarea.texto} />)
+                  key={tarea.id}
+                  id={tarea.id}
+                  completada={tarea.completada}
+                  texto={tarea.texto}
+                  isEdit={true} />)
             })}
         </div>
         
