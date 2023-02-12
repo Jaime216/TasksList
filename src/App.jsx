@@ -13,35 +13,46 @@ function App() {
   }
 
   function agregarTarea (e) {
-    e.preventDefault();
-    const nuevaTarea = {
-      id: uuidv4(),
-      texto: input,
-      completada: false
-    };
-    const tareasActualizadas = [...tareas,nuevaTarea];
-    setTareas(tareasActualizadas);
-  }
+    if(input.trim()){
+      e.preventDefault();
+      const nuevaTarea = {
+        id: uuidv4(),
+        texto: input,
+        completada: false
+      };
+      const tareasActualizadas = [...tareas,nuevaTarea];
+      setTareas(tareasActualizadas);
+      setInput('');
+      document.getElementById('input').value = '';
+    }else {
+      console.log("Introduzca texto")
+    }}
 
   return (
     <div className='App'>
       <div className='AppContainer'>
         <form 
           className='form'
-          onClick={agregarTarea} >
+          onSubmit={agregarTarea} >
             <input 
               type="text" 
               className='input'
+              id='input'
               onChange={changeInputValue} />
             <input 
+            className='inputButton'
               type="submit"   
               value="Agregar Tarea" />
         </form>
-        {tareas.map(tarea=>{
-          return( 
-            <Tarea
-              texto={tarea.texto} />)
-        })}
+        <div
+          className='tareasContainer' >
+            {tareas.map(tarea=>{
+              return( 
+                <Tarea
+                  texto={tarea.texto} />)
+            })}
+        </div>
+        
       </div>
       
     </div>
