@@ -39,6 +39,9 @@
   height: 20px;
   font-size: 0.9rem;
   padding: 5px;
+  border-radius: 10px;
+  border-width: 0.5px;
+  width: 70%;
 }
 .inputButton {
   background-color: transparent;

@@ -2,22 +2,25 @@ import React, { useState } from "react";
 import { TiDeleteOutline } from 'react-icons/ti';
 import '../styles/Tarea.css';
 
-function Tarea ({ texto,id, eliminar, completada, completar}){
+function Tarea ({ texto,id, eliminar, completada, completar, updateTask}){
 
-  const [input, setInput] = useState(texto)
   const [isEdit, setEdit] = useState(false)
 
   function editable () {
-    setEdit(!isEdit)
+    if(completada === false) setEdit(!isEdit)
   }
 
   function NoEdit () {
     return( 
       <div 
-        className={`nota ${completada ? 'completada' : ''}`} 
+        className={`nota `} 
         id={id} 
-        onClick={completar}>
-          <p>{input}</p>
+        >
+          <p 
+            className={`${completada ? 'completada' : ''}`}
+            onClick={()=>completar(id)} >
+              {texto}
+            </p>
           <div className="buttons">
             <button 
               className="edit"
@@ -36,25 +39,29 @@ function Tarea ({ texto,id, eliminar, completada, completar}){
 
       function Edit () {
 
-        const [newValue, setNewValue] = useState(input)
+        const [newValue, setNewValue] = useState(texto)
       
         function setInputValue (e) {
           setNewValue(e.target.value)
         }
 
-        function updateTask (e) {
-          e.preventDefault()
-          setInput(newValue)
-          setEdit(false)
-        }
-
         return(
           <div 
-            className="EditContainer" >
+            className="editContainer" >
             <form
-              onSubmit={updateTask} >
-              <input type="text" value={newValue} onChange={setInputValue} />
-              <input type="button" value="Update" onClick={updateTask} />
+              onSubmit={(e)=>{
+                e.preventDefault()
+                updateTask(id, newValue, completada)
+                setEdit(!isEdit)}} >
+              <input className="editInput" type="text" value={newValue} onChange={setInputValue} />
+              <input 
+                className="updateInput" 
+                type="button" 
+                value="Update" 
+                onClick={(e)=>{
+                  e.preventDefault()
+                  updateTask(id, newValue, completada)
+                  setEdit(!isEdit)}} />
             </form>
             
           </div>
