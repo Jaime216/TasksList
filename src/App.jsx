@@ -5,91 +5,101 @@ import { useState } from 'react';
 
 function App() {
 
-  const [tareas, setTareas] = useState([])
   const [input, setInput] = useState('');
+  const [tareas, setTareas] = useState([])
 
-  const setValue = e => {
+  function changeInputValue (e) {
     setInput(e.target.value)
-    console.log(input)
   }
 
-  const crearTareas = e => {
-    e.preventDefault();
-    const nuevaTarea = {
-      id: uuidv4(),
-      texto: input,
-      completada: false
-    };
-    setTareas([...tareas,nuevaTarea]);
-    let tareasAct = [...tareas,nuevaTarea];
-    window.localStorage.setItem('Tareas',JSON.stringify(tareasAct))
-  }
-
-  const eliminarTareas = id => {
-    let Tareas = tareas.filter(tarea=>id!==tarea.id);
-    setTareas(Tareas)
-    window.localStorage.setItem('Tareas',JSON.stringify(Tareas))
-  }
-
-  const completar = id => {
-    setTareas(tareas.map(tarea => {
-      if ( id === tarea.id ){
-        tarea.completada = !tarea.completada
+  function completar (id) {
+    setTareas(tareas.map(tarea=>{
+      if(tarea.id === id){
+        tarea.completada = ! tarea.completada
       }
-      return tarea
+      return tareas
     }))
-    window.localStorage.setItem('Tareas',JSON.stringify(tareas));
+    setTareas([...tareas]);
+    window.localStorage.setItem('Tareas',JSON.stringify(tareas))
+  }
+
+  function eliminar (id) {
+    let taraeasAct = tareas.filter(tarea => tarea.id !== id);
+    setTareas(taraeasAct)
+    window.localStorage.setItem('Tareas',JSON.stringify(taraeasAct))
+  }
+
+  function agregarTarea (e) {
+    e.preventDefault();
+    if(input.trim()){
+      const nuevaTarea = {
+        id: uuidv4(),
+        texto: input,
+        completada: false
+      };
+      const tareasActualizadas = [nuevaTarea,...tareas];
+      setTareas(tareasActualizadas);
+      setInput('');
+      document.getElementById('input').value = '';
+      window.localStorage.setItem('Tareas',JSON.stringify(tareasActualizadas))
+    }else {
+      console.log("Introduzca texto")
+    }}
+
+    
+    function updateTask (id, newValue, completada) {
+      tareas.map(tarea=>{
+        if(id === tarea.id){
+          tarea.texto=newValue
+        }
+        return tareas
+      })
+      setTareas([...tareas])
+      window.localStorage.setItem('Tareas',JSON.stringify(tareas))
     }
 
-    // const edit = id => {
-    //   let nuevoTexto;
-    //   tareas.map(tarea => {
-    //     if(id === tarea.id) {
-    //       nuevoTexto ="hola"
-    //     }
-    //     return tarea.texto = nuevoTexto
-    //   })
-    //   setTareas([...tareas])
-    //   console.log("hola")
-    // }
 
   return (
-    <div className="App">
+    <div className='App'>
       {window.addEventListener("load",()=>{
-        let tareasAnt = JSON.parse(window.localStorage.getItem('Tareas'));
-        setTareas([...tareasAnt])
+        if(window.localStorage.getItem('Tareas') === null){
+            window.localStorage.setItem('Tareas',JSON.stringify([]))
+        }
+        setTareas(JSON.parse(window.localStorage.getItem('Tareas')))
       })}
-      <div className='notesContainer'>
-        <h1 className='title'>
-            Lista de Tareas
-        </h1>
-        <form
-        onSubmit={crearTareas} >
-        
-          <input 
-            className='input'
-            type='text' 
-            maxLength={20}
-            onChange={setValue}/>
-          <button 
-            type='submit'
-            className='buttonAdd' >Agregar Tarea</button>
+      <div className='AppContainer'>
+        <form 
+          className='form'
+          onSubmit={agregarTarea} >
+            <input 
+              autoComplete='off'
+              type="text" 
+              className='input'
+              id='input'
+              onChange={changeInputValue} />
+            <input 
+            className='inputButton'
+              type="submit"   
+              value="Agregar Tarea" />
         </form>
-        <div className='notas' >
+        <div
+          className='tareasContainer' >
             {tareas.map(tarea=>{
-              return (
-                <Tarea 
-                  completar={completar}
+              return( 
+                <Tarea
                   key={tarea.id}
-                  texto={tarea.texto}
                   id={tarea.id}
-                  completada={tarea.completada} 
-                  onclick={eliminarTareas}
-                  // edit={edit}
-                  editBoolean={true} />
-            )})}
+                  eliminar={eliminar}
+                  completada={tarea.completada}
+                  texto={tarea.texto}
+                  isEdit={true}
+                  updateTask={updateTask}
+                  completar={completar} />)
+            })}
         </div>
+        
       </div>
+      
     </div>
   );
 }
